@@ -1,0 +1,17 @@
+.project
+.classpath
+.cache
+bin
+*~
+*.class
+target/
+project/project
+.ensime_lucene/
+.idea/
+*.zip
+*.log
+*.so
+*~
+log.txt
+\#*\#
+.\#*

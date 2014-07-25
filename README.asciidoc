@@ -1,0 +1,28 @@
+README for 'scalatest-fail'
+---------------------------
+
+which is a mini-project that gives examples of the following issues related to scalatest
+
+* broken pipe error when run under sbt
+* timeLimit not actually limiting infinite loops
+* scalacheck.Gen.choose that chooses values outside of range
+
+All issues are gathered into suits, each contains both erroneous tests and correct examples. Later may still produce failed result in the runtime, but does not crash or break scalatest itself.
+
+example.Broke
+~~~~~~~~~~~~~
+
+contains illustrations to the first issue (broken pipe).
+
+To activate it you should previously `set (fork in Test) := true` in the _sbt_ session. This issue shows itself only when run in separate vm. It shows each time you use +forAll+ construction inside property definitions.
+
+This options is disabled by default because it produce too much noise in other tests that utilise +forAll+ construction as part of them.
+
+example.Infinity
+~~~~~~~~~~~~~~~~
+
+contains both timeLimit and generator issues. Generator should never step out of defined range +(1, 1000)+, but actually produce +0+. To capture this behaviour special function introduced that falls to infinite loop if receive +0+ as input. And this infinite loop would not be interrupted by timeLimit.
+
+There are obscure requirements for generator and function to produce such a bug. So I included two correct cases with either tolerable check function or number generator. And single frizzing test that combines special function and generator. I have no knowledge what is so special about them, but in fact they freezes.
+
+'log.txt' is produces in the running directory to catch examples going in the infinite loop.
